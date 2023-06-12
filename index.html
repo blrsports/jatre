@@ -43,18 +43,35 @@
     .modal-lg {
         max-width: 1000px !important;
     }
+    input[type="file"] {
+        display: none;
+    }
+    .custom-file-upload {
+        border: 5px outset #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+        font-size: max(1.5vw, 2.8vh);
+        background-color: #8DC73D;
+        color: #214160;
+    }
+
 </style>
 
 <body style="font-family: 'Poppins';">
     <div class="container">
-        <h2 style="text-align:center;margin-top: 100px;color: #D01665;">Upload your favourite picture and enter your Bib number to create a personalized Jatre finisher poster !!
-</h2>
+        
+        <div style="display:flex; justify-content:center;"><img src="images/brj-logo-1.png" style="margin-top: 20px;"></img></div>
+        <h1 style="text-align:center;margin-top: 50px;color: #00B0EF; font-size: max(2.5vw, 4.8vh);"> Create your personalised
+            Jatre poster !</h1>
+        <h2 style="text-align:center;margin-top: 50px;color: #D01665; font-size: max(1.5vw, 2.8vh);">Upload your favourite picture and enter your Bib number to create a personalized Jatre finisher poster !!</h2>
         <form id='uploadForm' method="post">
 
             <div class="container">
-                <div class="row" style="text-align:center;margin-top: 30px;">
-                    <div class="col-sm" style="margin-left: 12%;">
-                        <input type="file" name="image" class="image">
+                <div class="row" style="text-align:center;margin-top: 50px;">
+                    <div class="col-lg">
+                        <label for="file-upload" class="custom-file-upload">Click to upload</label>
+                        <input id="file-upload" type="file" name="image" class="image">
                     </div>
                 </div>
                 <div class="row" style="text-align:center;margin-top: 30px;">
@@ -86,8 +103,7 @@
                         <a href="" class="btn-success btn-lg" id="start_over"
                             style="padding: 0.5rem 2rem; background-color:#D01665; margin-left: 2%;">Start over</a>
                     </div>
-                    <p class="mbr-text mb-0 mbr-fonts-style copyright display-7"
-                        style="margin-top: 4%; text-align: center;">
+                    <p style="margin-top: 4%; text-align: center; font-size: 20px;">
                         © Developed by <a alt="CleverPath Consulting" href="https://cleverpathconsulting.com"
                             target="_blank"> CleverPath Consulting </a>
                     </p>
@@ -155,7 +171,7 @@
         var cropper;
         $("#finisher-img").attr('src', ``);
         $('#download_lnk1').css('display', 'none');
-        $('#cpc_credit').css('display', 'none');
+       // $('#cpc_credit').css('display', 'none');
 
         $("body").on("change", ".image", function (e) {
             var files = e.target.files;
@@ -181,7 +197,7 @@
                 }
                 $("#finisher-img").attr('src', ``);
                 $('#download_lnk1').css('display', 'none');
-                $('#cpc_credit').css('display', 'none');
+               // $('#cpc_credit').css('display', 'none');
                 $('#disclaim').css('display', 'none');
                 $('#show_error').css('display', 'none');
                 $('#story').prop('checked', true);
@@ -265,7 +281,7 @@
                         $('#spinner1').css('display', 'none');
                         $('#downLoad_btn1').attr('href', `${response}`);
                         $('#download_lnk1').css('display', 'inherit');
-                        $('#cpc_credit').css('display', 'inherit');
+                       // $('#cpc_credit').css('display', 'inherit');
                         $('#disclaim').css('display', 'inherit');
                         $(":file").val('');
                     },

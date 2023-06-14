@@ -87,7 +87,7 @@ body {
     <div class="flex-container mainDiv" id="div-main">
         <div style="display:flex; justify-content:center;"><img src="images/brj-logo-1.png" style="margin-top: 20px; width: max(5vw, 10vh);"></img>
         </div>
-        <h1 style="text-align:center;margin-top: 10px;color: #00B0EF; font-size: max(1.5vw, 2.8vh);"> These images are untagged !</h1>
+        <h1 style="text-align:center;margin-top: 10px;color: #00B0EF; font-size: max(1.5vw, 2.8vh);">These many images are untagged !</h1>
         <h2 style="text-align:center;margin-top: 10px;color: #D01665; font-size: max(1vw, 2vh);">If you are seeing this, please click and tag the bibs to help your fellow runners !</h2>
         <div class="row">
             <div id="col1" class="column">
@@ -118,7 +118,6 @@ body {
 
                     <button id="save_bib" type="button" class="btn btn-primary">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <label >Thanks a lot !</label>
                 </div>
             </div>
         </div>
@@ -143,6 +142,7 @@ body {
             dataType: 'json', // added data type
             success: function (res) {
                 untagged = res;
+                $("h1").text(`These ${untagged.length} images are untagged !`);
                 for(let i=0;i<8;i++){
                     $('#col1').append($(`<img src="${convertHttp2Https(untagged[displayed++])}" onclick="handleClick(this.src)">`));
                     $('#col2').append($(`<img src="${convertHttp2Https(untagged[displayed++])}" onclick="handleClick(this.src)">`));

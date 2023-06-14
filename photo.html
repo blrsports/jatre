@@ -13,11 +13,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CGEWPXQR2"></script>
-    <script>
-    
-    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 </head>
 <style type="text/css">
 * {
@@ -122,42 +119,35 @@ body {
 
                     <button id="save_bib" type="button" class="btn btn-primary">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <label >Thanks a lot !</label>
                 </div>
             </div>
         </div>
     </div>
     <script>
 
+    let untagged = null;
+    let displayed = 0;
     const handleClick = (src) => {
         $('.imagepreview').attr('src', src);
         $('#myModal').modal('toggle');
     }
 
     const init = () => {
-        $('#col1').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col2').append($('<img src="http://34.75.54.212/Krishna-route/KKP02275.jpg" onclick="handleClick(this.src)">'));
-        $('#col3').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col1').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col2').append($('<img src="http://34.75.54.212/Krishna-route/KKP02275.jpg" onclick="handleClick(this.src)">'));
-        $('#col3').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col1').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col2').append($('<img src="http://34.75.54.212/Krishna-route/KKP02275.jpg" onclick="handleClick(this.src)">'));
-        $('#col3').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col1').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col2').append($('<img src="http://34.75.54.212/Krishna-route/KKP02275.jpg" onclick="handleClick(this.src)">'));
-        $('#col3').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col1').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col2').append($('<img src="http://34.75.54.212/Krishna-route/KKP02275.jpg" onclick="handleClick(this.src)">'));
-        $('#col3').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)>'));
-        $('#col1').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col2').append($('<img src="http://34.75.54.212/Krishna-route/KKP02275.jpg" onclick="handleClick(this.src)">'));
-        $('#col3').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col1').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col2').append($('<img src="http://34.75.54.212/Krishna-route/KKP02275.jpg" onclick="handleClick(this.src)">'));
-        $('#col3').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col1').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-        $('#col2').append($('<img src="http://34.75.54.212/Krishna-route/KKP02275.jpg" onclick="handleClick(this.src)">'));
-        $('#col3').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
+
+        $.ajax({
+            url: "https://blrsports-backend.el.r.appspot.com/bib-tag/untagged",
+            type: 'GET',
+            dataType: 'json', // added data type
+            success: function (res) {
+                untagged = res;
+                for(let i=0;i<8;i++){
+                    $('#col1').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
+                    $('#col2').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
+                    $('#col3').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
+                }
+            }
+        });
     }
     
     $(document).ready(function () {
@@ -167,10 +157,9 @@ body {
 
         $("#div-main").scroll(function () {
             if (Math.floor($(this).scrollTop() + $(this).innerHeight()) + 1 >= $(this)[0].scrollHeight) {
-                
-                $('#col1').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
-                $('#col2').append($('<img src="http://34.75.54.212/Krishna-route/KKP02275.jpg" onclick="handleClick(this.src)">'));
-                $('#col3').append($('<img src="http://34.75.54.212/Navya-Route-PD/_APT0265.jpg" onclick="handleClick(this.src)">'));
+                $('#col1').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
+                $('#col2').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
+                $('#col3').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
             }
         });
 
@@ -179,32 +168,30 @@ body {
             const image = $('.imagepreview').attr('src');
             let bibs = $('#bib-number').val();
             bibs = bibs.split(',');
-            bibs = bibs.map(b => parseInt(b)).filter(n => !isNaN(n));
-
-            console.log(JSON.stringify({
-                "bib_number": bibs,
-                "path": image
-            }))
+            // console.log(JSON.stringify({
+            //     "bib_number": bibs,
+            //     "path": image
+            // }))
 
             $.ajax({
                 type: 'post',
-                url: 'http://134.75.54.212:8051/update_results',
+                url: 'https://blrsports-backend.el.r.appspot.com/bib-tag/images',
                 data: JSON.stringify({
-                    "bib_number": bibs,
+                    "bib_numbers": bibs,
                     "path": image
                 }),
                 contentType: "application/json; charset=utf-8",
                 traditional: true,
                 success: function (data) {
-
+                    console.log('Successfully tagged !');
+                    $('#myModal').modal('toggle');
+                    toastr.success('Have fun storming the castle!', 'Miracle Max Says');
                 },
                 error: function (error) {
+                    console.log('Error updating tag', error);
                 }
             });
-
         });
-
-
     });
 
     </script>

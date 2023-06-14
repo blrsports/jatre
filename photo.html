@@ -3,8 +3,6 @@
 
 <head>
     <title>Jatre Finisher Picture</title>
-    <meta name="_token" content="{{ csrf_token() }}">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -177,19 +175,21 @@ body {
             $.ajax({
                 type: 'post',
                 url: 'https://blrsports-backend.el.r.appspot.com/bib-tag/images',
+                url2: 'http://localhost:8080/bib-tag/images',
                 data: JSON.stringify({
                     "bib_numbers": bibs,
                     "path": image
                 }),
+                dataType: 'json', 
                 contentType: "application/json; charset=utf-8",
-                traditional: true,
                 success: function (data) {
-                    console.log('Successfully tagged !');
                     $('#myModal').modal('toggle');
-                    toastr.success('Have fun storming the castle!', 'Miracle Max Says');
+                    toastr.success('Thank you!', 'You are awesome !');
                 },
                 error: function (error) {
                     console.log('Error updating tag', error);
+                    $('#myModal').modal('toggle');
+                    toastr.error('Nope !', 'Oops, it\'s us, not you!');
                 }
             });
         });

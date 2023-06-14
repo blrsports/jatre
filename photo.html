@@ -132,6 +132,9 @@ body {
         $('#myModal').modal('toggle');
     }
 
+    const convertHttp2Https = (s) => `https://blrsports-backend.el.r.appspot.com/bib-tag/images?url=${s}`;
+    const convertHttps2Http = (s) => s.replace(/.*url=/g, '');
+
     const init = () => {
 
         $.ajax({
@@ -141,9 +144,9 @@ body {
             success: function (res) {
                 untagged = res;
                 for(let i=0;i<8;i++){
-                    $('#col1').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
-                    $('#col2').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
-                    $('#col3').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
+                    $('#col1').append($(`<img src="${convertHttp2Https(untagged[displayed++])}" onclick="handleClick(this.src)">`));
+                    $('#col2').append($(`<img src="${convertHttp2Https(untagged[displayed++])}" onclick="handleClick(this.src)">`));
+                    $('#col3').append($(`<img src="${convertHttp2Https(untagged[displayed++])}" onclick="handleClick(this.src)">`));
                 }
             }
         });
@@ -156,15 +159,15 @@ body {
 
         $("#div-main").scroll(function () {
             if (Math.floor($(this).scrollTop() + $(this).innerHeight()) + 1 >= $(this)[0].scrollHeight) {
-                $('#col1').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
-                $('#col2').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
-                $('#col3').append($(`<img src="${untagged[displayed++]}" onclick="handleClick(this.src)">`));
+                $('#col1').append($(`<img src="${convertHttp2Https(untagged[displayed++])}" onclick="handleClick(this.src)">`));
+                $('#col2').append($(`<img src="${convertHttp2Https(untagged[displayed++])}" onclick="handleClick(this.src)">`));
+                $('#col3').append($(`<img src="${convertHttp2Https(untagged[displayed++])}" onclick="handleClick(this.src)">`));
             }
         });
 
         $("#save_bib").click(function () {
-
-            const image = $('.imagepreview').attr('src');
+            let image = $('.imagepreview').attr('src');
+            image = convertHttps2Http(image);
             let bibs = $('#bib-number').val();
             bibs = bibs.split(',');
             // console.log(JSON.stringify({

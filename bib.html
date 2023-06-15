@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BIB tagging Picture</title>
+    <meta name="_token" content="{{ csrf_token() }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+        crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"
+        integrity="sha256-jKV9n9bkk/CTP8zbtEtnKaKf+ehRovOYeKoyfthwbC8=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"
+        integrity="sha256-CgvH7sz3tHhkiVKh05kSUgG97YtzYNnWt6OXcmYzqHY=" crossorigin="anonymous"></script>
+</head>
+<style type="text/css">
+    * {
+        box-sizing: border-box;
+    }
+
+
+    .row {
+        display: -ms-flexbox;
+        /* IE10 */
+        display: flex;
+        -ms-flex-wrap: wrap;
+        /* IE10 */
+        flex-wrap: wrap;
+        padding: 0 4px;
+        margin-left: 0.3rem;
+    }
+
+    /* Create four equal columns that sits next to each other */
+    .column {
+        -ms-flex: 100%;
+        /* IE10 */
+        flex: 100%;
+        max-width: 100%;
+        padding: 4px;
+    }
+
+    .column img {
+        margin-top: 8px;
+        vertical-align: middle;
+        width: 100%;
+    }
+
+    /* Responsive layout - makes a two column-layout instead of four columns */
+    @media screen and (max-width: 800px) {
+        .column {
+            -ms-flex: 50%;
+            flex: 50%;
+            max-width: 50%;
+        }
+    }
+
+    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+        .column {
+            -ms-flex: 100%;
+            flex: 100%;
+            max-width: 100%;
+        }
+    }
+</style>
+
+<body style="font-family: 'Poppins';">
+    <div class="container">
+        
+        <div style="display:flex; justify-content:center;"><img src="images/brj-logo-1.png" style="margin-top: 100px;"></img></div>
+
+        <h2 style="text-align:center;margin-top: 20px;color: #D01665; font-size: max(1.5vw, 2.8vh);">Your race day photos !</h2>
+        
+        <div style="display:flex; justify-content:center; margin-top: 20px;">
+            <label for="bib-number" style="display:flex; align-items:end; margin-right: 20px;color: #00B0EF; font-size: max(1vw, 2vh);">Enter Bib number</label>
+            <input type="text" placeholder="100001" id="bib-number" onfocus="this.placeholder = ''" onblur="this.placeholder = '100001'" class="u-input u-input-rectangle" size="25%">
+            <button id="search_bib" type="button" class="btn btn-primary" style="margin-left:10px;">Search</button>
+        </div>
+        
+        <div style="display:flex; justify-content:center; margin-top: 10px;">
+        <label id="bib_not_found"
+            style="display:flex; align-items:end; margin-right: 20px;color: #D01665; font-size: max(0.8vw, 1.5vh); display: none;">BIB
+            NOT FOUND 😞</label>
+        </div>
+        
+        <div class="row">
+            <div id="images" class="column">
+            </div>
+        </div>
+
+        <p style="margin-top: 4%; text-align: center; font-size: 15px;">
+            © Developed by <a alt="CleverPath Consulting" href="https://cleverpathconsulting.com" target="_blank"> CleverPath
+                Consulting </a>
+        </p>
+
+        <p style="margin-top: 4%; text-align: center; font-size: 20px; color: #D01665;">
+            If you can not find your photos you want want to check out the untagged images<a alt="CleverPath Consulting" href="photo.html" target="_blank"> here</a>
+        </p>
+    </div>
+
+    </div>
+    </div>
+    <script>
+
+        let results = null;
+        const refreshCache = () => {
+            $.ajax({
+                url: "https://blrsports-backend.el.r.appspot.com/bib-tag/tagged",
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function (res) {
+                    results = res;
+                }
+            });
+        }
+        $(document).ready(function () {
+            refreshCache();
+        });
+
+        $("#search_bib").click(function () {
+
+            $('#images').empty();
+            $('#bib_not_found').css('display', 'none');
+            let bib = $('#bib-number').val();
+            let images = results[`${bib}`];
+
+            if(!images || images.length ===0) {
+                $('#bib_not_found').css('display', 'inherit');
+            } else {
+                images.forEach((element,i) => {
+                    $('#images').append($(`<img src="https://blrsports-backend.el.r.appspot.com/bib-tag/images?url=http://0.0.0.0/${element}"></img>`));
+                });
+            }
+        })
+       
+    </script>
+</body>
+
+</html>

@@ -142,7 +142,6 @@ body {
             dataType: 'json', // added data type
             success: function (res) {
                 untagged = res;
-                $("h1").text(`These ${untagged.length} images are untagged !`);
                 for(let i=0;i<8;i++){
                     $('#col1').append($(`<img src="${convertHttp2Https(untagged[displayed++])}" onclick="handleClick(this.src)">`));
                     $('#col2').append($(`<img src="${convertHttp2Https(untagged[displayed++])}" onclick="handleClick(this.src)">`));

@@ -182,16 +182,16 @@ body {
                     "bib_numbers": bibs,
                     "path": image
                 }),
-                dataType: 'json', 
+                dataType: 'json',  
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     $('#myModal').modal('toggle');
-                    toastr.success('Thank you!', 'You are awesome !');
+                    toastr.success('Thank you!', 'You are awesome 🧡!');
                 },
                 error: function (error) {
                     console.log('Error updating tag', error);
                     $('#myModal').modal('toggle');
-                    toastr.error('Nope !', 'Oops, it\'s us, not you!');
+                    toastr.error('Oops, it\'s not you, it\'s us 🙌 ', 'Nope 🙁');
                 }
             });
         });
